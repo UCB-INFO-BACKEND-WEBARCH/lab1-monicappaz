@@ -54,13 +54,13 @@ def check_password_strength(password):
 
     # inializing score, len of password, and strength
     score = 0
-    lenOfPassword = len(password)
+    password_len = len(password)
     strength = None
 
     # checking len of password for score
-    if lenOfPassword >= 12:
+    if password_len >= 12:
         score += 30
-    elif lenOfPassword >= 8:
+    elif password_len >= 8:
         score += 20
     
     # checking if we see any digits, upper/lower, or 
@@ -119,7 +119,26 @@ def generate_password(length=12, use_special=True):
           string.digits, and random.choice()
     """
     # TODO: Implement this function
-    pass
+    # init str for final password
+    final_password = ""
+
+    # checking the length, and setting it to be 8 if it is less than
+    if length < 8:
+        length = 8
+    
+    # once we have the right length, add all of the needed chars together
+    password_chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
+
+    # if we want special chars, add them to the passwordChars str
+    if use_special:
+        password_chars += string.punctuation
+    
+    # iter though len of password to randomly generate each char 
+    # for password at the specified length
+    for _ in range(length):
+        final_password += random.choice(password_chars)
+    
+    return final_password
 
 
 # ============================================

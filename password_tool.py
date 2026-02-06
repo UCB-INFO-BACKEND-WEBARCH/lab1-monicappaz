@@ -34,7 +34,7 @@ def check_password_strength(password):
     - Not in common list: 10 points
     
     Returns:
-        dict with keys: "password", "score", "strength", "feedback"
+        dict with keys: "password", "score", "strength"
         
     Strength levels:
     - 0-39: "Weak"
@@ -51,7 +51,42 @@ def check_password_strength(password):
     Hint: Use .isdigit(), .isupper(), .islower() and string.punctuation
     """
     # TODO: Implement this function
-    pass
+
+    # inializing score, len of password, and strength
+    score = 0
+    lenOfPassword = len(password)
+    strength = None
+
+    # checking len of password for score
+    if lenOfPassword >= 12:
+        score += 30
+    elif lenOfPassword >= 8:
+        score += 20
+    
+    # checking if we see any digits, upper/lower, or 
+    # special chars + updating score
+    if any(char.isdigit() for char in password):
+        score += 20
+    if any(char.isupper() for char in password):
+        score += 20
+    if any(char.islower() for char in password):
+        score += 20
+    if any(char in string.punctuation for char in password):
+        score += 20
+    if password not in COMMON_PASSWORDS:
+        score += 10
+
+    # doing final check for strength of password based on score
+    if score >= 70:
+        strength = "Strong"
+    elif score >= 40:
+        strength = "Medium"
+    else:
+        strength = "Weak"
+
+    # returning expected output of pass, score, and strength
+    return {"password": password, "score": score, "strength": strength}
+
 
 
 # ============================================
